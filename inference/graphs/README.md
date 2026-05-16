@@ -1,5 +1,6 @@
 # Graph 생성 과정
 
+```mermaid
 flowchart LR
     %% 스타일 바인딩
     classDef pg fill:#E1F5FE,stroke:#0277BD,stroke-width:1.5px,color:#01579B;

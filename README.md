@@ -26,6 +26,8 @@
 ---
 
 ### 📝 Schema inference process
+
+```mermaid
 flowchart LR
     %% 1단계: 입력 및 초기화
     subgraph STAGE1 [1. 입력 및 초기화]

@@ -28,10 +28,10 @@
 ### 📝 Schema inference process
 
 ```mermaid
-flowchart LR
+flowchart TD
     %% 1단계: 입력 및 초기화
     subgraph STAGE1 [1. 입력 및 초기화]
-        direction TD
+        direction LR
         A["원본 메타데이터 CSV<br>(88.csv / R5points.csv)"] -->|1. 파일 입력| B("AutoMapping 클래스 호출")
         B -->|2. 컨텍스트 초기화| C["InferenceManager<br>/ DataModel"]
         C -->|3. 파일 스트림 파싱| D["Dataset<br>.loadDatasetFromFile"]
@@ -39,7 +39,7 @@ flowchart LR
 
     %% 2단계: 토큰화 및 그래프 구축
     subgraph STAGE2 [2. 토큰화 및 그래프 분석]
-        direction TD
+        direction LR
         E["SimpleTokenizer"] -->|CamelCase 변환<br>/ 특수문자 제거| F["PointTokens 생성 및 정렬"]
         F -->|5. 그래프 엔진 가동| G["PointGraph<br>(토큰 폴더 계층 트리 구축)"]
         G -->|하위 노드 구조 대조| H["SimilarityGraph<br>(클러스터링 & Concept 생성)"]
@@ -48,7 +48,7 @@ flowchart LR
 
     %% 3단계: 스코어링 및 매칭
     subgraph STAGE3 [3. ML 스코어링 및 분류]
-        direction TD
+        direction LR
         J["InferenceManager<br>.labelDataset"] -->|7. 피처 스코어링 대조| K["Features / PointClassifier<br>(Jaro-Winkler 거리 채점)"]
         K -->|임계치 limit 이상 필터링| L["labeledDataset 캐시 적재"]
         L -->|8. 중간 가공물 출력| M["saveLabeledDataset<br>(AutomapCandidate.csv)"]
@@ -56,12 +56,12 @@ flowchart LR
 
     %% 4단계: 정제 및 최종 출력
     subgraph STAGE4 [4. 데이터 정제 및 출력]
-        direction TD
+        direction LR
         N["AutoMapping<br>.LabelCleansing"] -->|최고 유사도 1:1<br>탐욕적 매칭| O["Pandas 데이터 프레임<br>배치 빌드"]
         O -->|10. 마스터 리포트 출력| P["Automapping.csv<br>최종 저장 완료"]
     end
 
-    %% 서브그래프 간 연결 관계
+    %% 서브그래프 간 연결 관계 (위에서 아래로 연결)
     D -->|4. 원시 문자열 전달| E
     I -->|6. 그래프 전수 조사| J
     M -->|9. 데이터 정제 엔진 가동| N
@@ -77,7 +77,7 @@ flowchart LR
     style K fill:#F3E5F5,stroke:#6A1B9A,stroke-width:1px
     style P fill:#FFEBEE,stroke:#C62828,stroke-width:2px
 
-    %% 서브그래프 스타일 (선택 사항: 시각적 구분을 원치 않으시면 제거 가능)
+    %% 서브그래프 스타일
     style STAGE1 fill:#FAFAFA,stroke:#B0BEC5,stroke-dasharray: 5 5
     style STAGE2 fill:#FAFAFA,stroke:#B0BEC5,stroke-dasharray: 5 5
     style STAGE3 fill:#FAFAFA,stroke:#B0BEC5,stroke-dasharray: 5 5

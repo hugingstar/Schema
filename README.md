@@ -60,7 +60,7 @@ flowchart TD
         N["AutoMapping<br>.LabelCleansing"] -->|최고 유사도 1:1<br>탐욕적 매칭| O["Pandas 데이터 프레임<br>배치 빌드"]
         O -->|10. 마스터 리포트 출력| P["Automapping.csv<br>최종 저장 완료"]
     end
-
+s
     %% 서브그래프 간 연결 관계 (위에서 아래로 연결)
     D -->|4. 원시 문자열 전달| E
     I -->|6. 그래프 전수 조사| J

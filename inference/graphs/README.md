@@ -8,8 +8,8 @@ flowchart TD
     classDef smg fill:#F3E5F5,stroke:#6A1B9A,stroke-width:1.5px,color:#4A148C;
     classDef ext fill:#ECEFF1,stroke:#37474F,stroke-width:1px,color:#263238;
 
-    %% 외부 데이터 부하
-    In([tokenizedPoints]) :::ext
+    %% 외부 데이터 부하 (인라인 클래스 제거)
+    In([tokenizedPoints])
 
     %% 1. POINT GRAPH (내부 좌우 배치)
     subgraph PG [1. PointGraph 엔진]
@@ -35,11 +35,14 @@ flowchart TD
     style SMG fill:#FAF7FC,stroke:#6A1B9A,stroke-width:1px,stroke-dasharray: 5 5
     class SMG_1,SMG_2,SMG_3,SMG_4 smg;
 
-    %% 데이터 최종 출력
-    Out([semanticGraph.svg]) :::ext
+    %% 데이터 최종 출력 (인라인 클래스 제거)
+    Out([semanticGraph.svg])
 
     %% 파이프라인 메인 에지 연결 (세로 축 흐름)
     In --> PG_1
     PG_3 --> SG_1
     SG_4 --> SMG_1
     SMG_4 --> Out
+
+    %% 외부 노드 스타일 별도 바인딩 (파싱 에러 원천 차단)
+    class In,Out ext;
